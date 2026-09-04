@@ -45,6 +45,9 @@ begin
   ChatText.Width:=ClientWidth;
   ChatText.Height:=ClientHeight-UserInput.Height;
   UserInput.Top:=ChatText.Height;
+  UserInput.Width:=ClientWidth-90;
+  SendBtn.Top:=ClientHeight-60;
+  SendBtn.Left:=ClientWidth-80;
 end;
 
 procedure TBuddyChatForm.FormDestroy(Sender: TObject);
@@ -96,6 +99,7 @@ begin
   AIChat.URL:=ModelLogonForm.ServerURL.Text;
   AIChat.Model:=ModelLogonForm.Model.Text;
   AIChat.Active:=True;
+  Sleep(500);
   ChatText.Text:=AIChat.ChatHistory;
 end;
 
