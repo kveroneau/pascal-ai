@@ -21,3 +21,9 @@ Once you create a buddy, they will appear in the buddy list, and it will also im
 With this *AI Instant Messenger*, you never need to be anxious about a very delayed reply ever again! As an *AIIM Buddy* will always immediately response to you right in the moment, either giving you helpful advice, a shoulder to lean on, or something else entirely!  With **AIIM Buddies**, each of them can be incredibly unique and have very differing personalities, allowing you to feel like you are actually talking to this other person over Instant Messenger together.
 
 ![Buddy Chat](Screenshots/BuddyChat.png)
+
+### With Theatre Mode, you'll always be entertained
+
+Ever wanted to know how a conversation between **THE** *Rose Nylund* and the critically acclaimed *Phoebe* from the hit TV show **Friends** might have been if they met, or were able to have a conversation?  Well... *guess what?* **NOW YOU TOTALLY CAN!**
+
+![Theatre Mode](Screenshots/TheatreMode.png)
