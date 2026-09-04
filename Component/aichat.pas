@@ -23,6 +23,7 @@ type
     FOnPrompt: TPromptEvent;
     FOutput: TMemo;
     FAppend: Boolean;
+    FOnStart, FOnFinish: TNotifyEvent;
     function GetChatHistory: string;
     function GetMessage: string;
     function GetMessageReady: Boolean;
@@ -39,6 +40,8 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure SendMessage(msg: string);
+    procedure LoadJSON(json: string);
+    function AsJSON: string;
   published
     property Active: Boolean read FActive write SetActive;
     property Prompt: string read FPrompt write SetPrompt;
@@ -48,6 +51,8 @@ type
     property Sending: Boolean read FSending;
     property OnChat: TChatEvent read FOnChat write FOnChat;
     property OnPrompt: TPromptEvent read FOnPrompt write FOnPrompt;
+    property OnStart: TNotifyEvent read FOnStart write FOnStart;
+    property OnFinish: TNotifyEvent read FOnFinish write FOnFinish;
     property Output: TMemo read FOutput write FOutput;
   end;
 
@@ -73,6 +78,8 @@ begin
     if FPrompt = '' then
       FPrompt:='You are a helpful assistant.';
     FChat:=TAIThread.Create(FPrompt, FModel, FURL);
+    if Assigned(FOnStart) then
+      FOnStart(Self);
     FChat.Start;
   end
   else
@@ -81,6 +88,8 @@ begin
     begin
       FChat.StopThread;
       FChat.WaitFor;
+      if Assigned(FOnFinish) then
+        FOnFinish(Self);
       FChat.Free;
     end;
   end;
@@ -146,6 +155,8 @@ begin
 end;
 
 procedure TAIChat.SendMessage(msg: string);
+var
+  caret: TPoint;
 begin
   if FSending then
     raise Exception.Create('Cannot Send a message when one is already sending.');
@@ -160,11 +171,29 @@ begin
   if Assigned(FOutput) then
   begin
     if FAppend then
-      FOutput.Text:=FOutput.Text+#13+FChat.Message
+    begin
+      caret:=FOutput.CaretPos;
+      FOutput.Text:=FOutput.Text+#13+FChat.Message;
+      FOutput.CaretPos:=caret;
+    end
     else
       FOutput.Text:=FChat.Message;
   end;
   FSending:=False;
+end;
+
+procedure TAIChat.LoadJSON(json: string);
+begin
+  if FActive then
+    raise Exception.Create('Cannot load context after activation!');
+  if not Assigned(FChat) then
+    raise Exception.Create('Cannot be called outside callback event!');
+  FChat.LoadJSON(json);
+end;
+
+function TAIChat.AsJSON: string;
+begin
+  Result:=FChat.AsJSON;
 end;
 
 end.

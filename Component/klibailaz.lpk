@@ -7,12 +7,12 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Description Value="Various AI/LLM components for Lazarus, to allow for component-based development with AI/LLMs"/>
     <License Value="MIT License"/>
-    <Version Minor="1"/>
+    <Version Minor="2"/>
     <Files>
       <Item>
         <Filename Value="aichat.pas"/>
