@@ -100,6 +100,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="sqlite3laz"/>
+      </Item>
+      <Item>
         <PackageName Value="LCL"/>
       </Item>
     </RequiredPackages>
@@ -122,6 +125,12 @@
         <ComponentName Value="ModelLogonForm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ModelLogonWindow"/>
+      </Unit>
+      <Unit>
+        <Filename Value="dbmodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Database"/>
+        <ResourceBaseClass Value="DataModule"/>
       </Unit>
     </Units>
   </ProjectOptions>

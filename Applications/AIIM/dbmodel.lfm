@@ -1,0 +1,40 @@
+object Database: TDatabase
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  OldCreateOrder = False
+  Height = 170
+  HorizontalOffset = 317
+  VerticalOffset = 166
+  Width = 226
+  object BuddyDB: TSqlite3Dataset
+    AutoIncrementKey = True
+    IndexFieldNames = 'name'
+    FileName = 'aiim.db'
+    PrimaryKey = 'id'
+    SaveOnClose = True
+    StoreDefs = True
+    TableName = 'buddy'
+    FieldDefs = <    
+      item
+        Name = 'id'
+        Attributes = [faRequired]
+        DataType = ftAutoInc
+      end    
+      item
+        Name = 'name'
+        Attributes = [faRequired]
+        DataType = ftString
+      end    
+      item
+        Name = 'history'
+        Attributes = [faRequired]
+        DataType = ftMemo
+      end    
+      item
+        Name = 'category'
+        DataType = ftString
+      end>
+    Left = 88
+    Top = 16
+  end
+end
