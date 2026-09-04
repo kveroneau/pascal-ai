@@ -1,8 +1,37 @@
 object BuddyListForm: TBuddyListForm
   Left = 325
-  Height = 240
+  Height = 355
   Top = 166
-  Width = 320
+  Width = 277
   Caption = 'AIIM Buddies'
+  ClientHeight = 355
+  ClientWidth = 277
+  Menu = MainMenu
   LCLVersion = '4.6.0.0'
+  OnResize = FormResize
+  OnShow = FormShow
+  object BuddyList: TTreeView
+    Left = 0
+    Height = 241
+    Top = 0
+    Width = 225
+    TabOrder = 0
+  end
+  object MainMenu: TMainMenu
+    Left = 104
+    Top = 272
+    object MenuItem1: TMenuItem
+      Caption = '&App'
+      object ExitMenu: TMenuItem
+        Caption = 'E&xit'
+        OnClick = ExitMenuClick
+      end
+    end
+    object MenuItem2: TMenuItem
+      Caption = '&Buddy'
+      object CreateMenu: TMenuItem
+        Caption = '&Create-a-Buddy...'
+      end
+    end
+  end
 end

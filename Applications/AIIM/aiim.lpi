@@ -112,8 +112,16 @@
         <Filename Value="buddylistwindow.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="BuddyListForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="BuddyListWindow"/>
+      </Unit>
+      <Unit>
+        <Filename Value="modellogonwindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ModelLogonForm"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ModelLogonWindow"/>
       </Unit>
     </Units>
   </ProjectOptions>
