@@ -6,13 +6,15 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls,
-  ModelLogonWindow, CreateABuddyWindow, BuddyChatWindow, dbmodel, TheatreWindow;
+  IniPropStorage, ModelLogonWindow, CreateABuddyWindow, BuddyChatWindow,
+  dbmodel, TheatreWindow;
 
 type
 
   { TBuddyListForm }
 
   TBuddyListForm = class(TForm)
+    IniPropStorage1: TIniPropStorage;
     MainMenu: TMainMenu;
     MenuItem1: TMenuItem;
     ExitMenu: TMenuItem;
@@ -23,6 +25,7 @@ type
     procedure BuddyListDblClick(Sender: TObject);
     procedure CreateMenuClick(Sender: TObject);
     procedure ExitMenuClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TheatreMenuClick(Sender: TObject);
@@ -74,6 +77,11 @@ end;
 procedure TBuddyListForm.ExitMenuClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TBuddyListForm.FormCreate(Sender: TObject);
+begin
+  IniPropStorage1.IniFileName:=GetConfigPath+PathDelim+IniPropStorage1.IniFileName;
 end;
 
 procedure TBuddyListForm.CreateMenuClick(Sender: TObject);

@@ -5,8 +5,8 @@ unit ModelLogonWindow;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, fphttpclient,
-  fpjson;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  IniPropStorage, fphttpclient, fpjson, dbmodel;
 
 type
 
@@ -15,6 +15,7 @@ type
   TModelLogonForm = class(TForm)
     BeginBtn: TButton;
     CloseBtn: TButton;
+    IniPropStorage1: TIniPropStorage;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -23,6 +24,7 @@ type
     Label2: TLabel;
     ServerURL: TComboBox;
     Label1: TLabel;
+    procedure FormCreate(Sender: TObject);
     procedure ServerURLChange(Sender: TObject);
   private
 
@@ -56,6 +58,11 @@ begin
     if Assigned(json) then
       json.Free;
   end;
+end;
+
+procedure TModelLogonForm.FormCreate(Sender: TObject);
+begin
+  IniPropStorage1.IniFileName:=GetConfigPath+PathDelim+IniPropStorage1.IniFileName;
 end;
 
 end.

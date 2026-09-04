@@ -7,7 +7,9 @@ object ModelLogonForm: TModelLogonForm
   ClientHeight = 259
   ClientWidth = 320
   Position = poScreenCenter
+  SessionProperties = 'ServerURL.Text;Model.Text'
   LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
   object Label1: TLabel
     Left = 102
     Height = 18
@@ -98,5 +100,12 @@ object ModelLogonForm: TModelLogonForm
     Caption = 'Close'
     ModalResult = 11
     TabOrder = 3
+  end
+  object IniPropStorage1: TIniPropStorage
+    StoredValues = <>
+    IniFileName = 'config.ini'
+    IniSection = 'logon'
+    Left = 240
+    Top = 8
   end
 end

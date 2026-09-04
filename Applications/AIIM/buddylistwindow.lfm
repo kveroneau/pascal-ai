@@ -7,7 +7,9 @@ object BuddyListForm: TBuddyListForm
   ClientHeight = 355
   ClientWidth = 277
   Menu = MainMenu
+  SessionProperties = 'Top;Left;Width;Height'
   LCLVersion = '4.6.0.0'
+  OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
   object BuddyList: TTreeView
@@ -19,7 +21,7 @@ object BuddyListForm: TBuddyListForm
     OnDblClick = BuddyListDblClick
   end
   object MainMenu: TMainMenu
-    Left = 104
+    Left = 24
     Top = 272
     object MenuItem1: TMenuItem
       Caption = '&App'
@@ -39,5 +41,12 @@ object BuddyListForm: TBuddyListForm
         OnClick = TheatreMenuClick
       end
     end
+  end
+  object IniPropStorage1: TIniPropStorage
+    StoredValues = <>
+    IniFileName = 'config.ini'
+    IniSection = 'aiim'
+    Left = 168
+    Top = 272
   end
 end
