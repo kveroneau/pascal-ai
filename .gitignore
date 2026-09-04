@@ -1,5 +1,7 @@
 lib/
+backup/
 *.ico
 *.lps
 *.res
 demo1
+demo2

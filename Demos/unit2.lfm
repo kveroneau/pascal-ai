@@ -1,0 +1,49 @@
+object Form1: TForm1
+  Left = 317
+  Height = 240
+  Top = 166
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '4.6.0.0'
+  OnResize = FormResize
+  object Memo1: TMemo
+    Left = 0
+    Height = 90
+    Top = 24
+    Width = 150
+    Lines.Strings = (
+      'Paste text to summarize here, then simple double-click this window!'
+    )
+    ScrollBars = ssAutoVertical
+    TabOrder = 0
+    OnDblClick = Memo1DblClick
+  end
+  object TIEdit1: TTIEdit
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 150
+    Link.TIObject = AIChat1
+    Link.TIPropertyName = 'URL'
+    TabOrder = 1
+  end
+  object TIEdit2: TTIEdit
+    Left = 152
+    Height = 26
+    Top = 0
+    Width = 168
+    Link.TIObject = AIChat1
+    Link.TIPropertyName = 'Model'
+    TabOrder = 2
+  end
+  object AIChat1: TAIChat
+    Active = False
+    Prompt = 'You are a Princeton English Professor that excels in creating summaries of various text and notes you are provided.'
+    Append = False
+    Output = Memo1
+    Left = 256
+    Top = 40
+  end
+end
