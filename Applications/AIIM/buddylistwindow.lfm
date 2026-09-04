@@ -1,0 +1,8 @@
+object BuddyListForm: TBuddyListForm
+  Left = 325
+  Height = 240
+  Top = 166
+  Width = 320
+  Caption = 'AIIM Buddies'
+  LCLVersion = '4.6.0.0'
+end
