@@ -152,11 +152,11 @@ begin
   else
     FPrompt:=prompt;
   if model = '' then
-    raise Exception.Create('Model is not set!');
+    raise Exception.Create('Model is not set!')
   else
     FModel:=model;
   if url = '' then
-    raise Exception.Create('URL is not set!');
+    raise Exception.Create('URL is not set!')
   else
     FURL:=url;
   FMemory:=True;
