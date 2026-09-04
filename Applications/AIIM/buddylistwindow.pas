@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ComCtrls,
-  ModelLogonWindow, CreateABuddyWindow, BuddyChatWindow, dbmodel;
+  ModelLogonWindow, CreateABuddyWindow, BuddyChatWindow, dbmodel, TheatreWindow;
 
 type
 
@@ -19,11 +19,13 @@ type
     MenuItem2: TMenuItem;
     CreateMenu: TMenuItem;
     BuddyList: TTreeView;
+    TheatreMenu: TMenuItem;
     procedure BuddyListDblClick(Sender: TObject);
     procedure CreateMenuClick(Sender: TObject);
     procedure ExitMenuClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure TheatreMenuClick(Sender: TObject);
   private
 
   public
@@ -62,6 +64,11 @@ begin
       Next;
     until EOF;
   end;
+end;
+
+procedure TBuddyListForm.TheatreMenuClick(Sender: TObject);
+begin
+  TheatreForm.Show;
 end;
 
 procedure TBuddyListForm.ExitMenuClick(Sender: TObject);

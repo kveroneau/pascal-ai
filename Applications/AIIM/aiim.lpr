@@ -11,7 +11,7 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, sqlite3laz, BuddyListWindow, ModelLogonWindow, dbmodel,
-  BuddyChatWindow, CreateABuddyWindow, CloneWindow
+  BuddyChatWindow, CreateABuddyWindow, CloneWindow, TheatreWindow
   { you can add units after this };
 
 {$R *.res}
@@ -29,6 +29,7 @@ begin
   Application.CreateForm(TDatabase, Database);
   Application.CreateForm(TCreateABuddyForm, CreateABuddyForm);
   Application.CreateForm(TCloneForm, CloneForm);
+  Application.CreateForm(TTheatreForm, TheatreForm);
   Application.Run;
 end.
 

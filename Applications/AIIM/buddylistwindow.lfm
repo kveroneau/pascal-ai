@@ -34,6 +34,10 @@ object BuddyListForm: TBuddyListForm
         Caption = '&Create-a-Buddy...'
         OnClick = CreateMenuClick
       end
+      object TheatreMenu: TMenuItem
+        Caption = '&Theatre Mode...'
+        OnClick = TheatreMenuClick
+      end
     end
   end
 end
