@@ -100,6 +100,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="klibailaz"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+      <Item>
         <PackageName Value="sqlite3laz"/>
       </Item>
       <Item>
@@ -123,6 +129,7 @@
         <Filename Value="modellogonwindow.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ModelLogonForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ModelLogonWindow"/>
       </Unit>
@@ -130,7 +137,32 @@
         <Filename Value="dbmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Database"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+      </Unit>
+      <Unit>
+        <Filename Value="buddychatwindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="BuddyChatForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="BuddyChatWindow"/>
+      </Unit>
+      <Unit>
+        <Filename Value="createabuddywindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CreateABuddyForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="CreateABuddyWindow"/>
+      </Unit>
+      <Unit>
+        <Filename Value="clonewindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CloneForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="CloneWindow"/>
       </Unit>
     </Units>
   </ProjectOptions>

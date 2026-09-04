@@ -1,0 +1,120 @@
+object CreateABuddyForm: TCreateABuddyForm
+  Left = 333
+  Height = 359
+  Top = 192
+  Width = 567
+  Caption = 'Create-A-Buddy'
+  ClientHeight = 359
+  ClientWidth = 567
+  LCLVersion = '4.6.0.0'
+  OnShow = FormShow
+  object Label3: TLabel
+    Left = 8
+    Height = 48
+    Top = 8
+    Width = 46
+    Caption = 'AI'
+    Font.Height = -40
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 64
+    Height = 18
+    Top = 8
+    Width = 51
+    Caption = 'Instant'
+    Font.Style = [fsItalic]
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 64
+    Height = 18
+    Top = 32
+    Width = 80
+    Caption = 'Messenger'
+    Font.Style = [fsItalic]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 8
+    Height = 18
+    Top = 63
+    Width = 235
+    Caption = 'Where Buddies won''t Ghost.'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 18
+    Top = 112
+    Width = 111
+    Caption = 'Buddy''s Name:'
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 18
+    Top = 176
+    Width = 255
+    Caption = 'Personality Description in one-line:'
+  end
+  object Label7: TLabel
+    Left = 8
+    Height = 18
+    Top = 240
+    Width = 177
+    Caption = 'Buddy''s Favourite Topic:'
+  end
+  object CloneBtn: TButton
+    Left = 301
+    Height = 25
+    Top = 169
+    Width = 75
+    Caption = 'Clone'
+    TabOrder = 0
+    OnClick = CloneBtnClick
+  end
+  object CreateBtn: TButton
+    Left = 64
+    Height = 25
+    Top = 312
+    Width = 75
+    Caption = 'Create'
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object BuddyName: TEdit
+    Left = 8
+    Height = 26
+    Top = 137
+    Width = 368
+    TabOrder = 2
+    Text = 'BuddyName'
+  end
+  object BuddyDesc: TEdit
+    Left = 8
+    Height = 26
+    Top = 200
+    Width = 368
+    TabOrder = 3
+    Text = 'BuddyDesc'
+  end
+  object BuddyTopic: TEdit
+    Left = 8
+    Height = 26
+    Top = 264
+    Width = 368
+    TabOrder = 4
+    Text = 'BuddyTopic'
+  end
+  object CancelBtn: TButton
+    Left = 217
+    Height = 25
+    Top = 312
+    Width = 75
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 5
+  end
+end

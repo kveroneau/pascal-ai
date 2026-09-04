@@ -16,6 +16,7 @@ object BuddyListForm: TBuddyListForm
     Top = 0
     Width = 225
     TabOrder = 0
+    OnDblClick = BuddyListDblClick
   end
   object MainMenu: TMainMenu
     Left = 104
@@ -31,6 +32,7 @@ object BuddyListForm: TBuddyListForm
       Caption = '&Buddy'
       object CreateMenu: TMenuItem
         Caption = '&Create-a-Buddy...'
+        OnClick = CreateMenuClick
       end
     end
   end

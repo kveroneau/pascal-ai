@@ -1,0 +1,111 @@
+object CloneForm: TCloneForm
+  Left = 382
+  Height = 452
+  Top = 268
+  Width = 480
+  Caption = 'Clone-A-Buddy'
+  ClientHeight = 452
+  ClientWidth = 480
+  LCLVersion = '4.6.0.0'
+  OnShow = FormShow
+  object Label3: TLabel
+    Left = 8
+    Height = 48
+    Top = 8
+    Width = 46
+    Caption = 'AI'
+    Font.Height = -40
+    Font.Style = [fsBold, fsItalic]
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 64
+    Height = 18
+    Top = 8
+    Width = 51
+    Caption = 'Instant'
+    Font.Style = [fsItalic]
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 64
+    Height = 18
+    Top = 32
+    Width = 80
+    Caption = 'Messenger'
+    Font.Style = [fsItalic]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 8
+    Height = 18
+    Top = 63
+    Width = 235
+    Caption = 'Where Buddies won''t Ghost.'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 18
+    Top = 104
+    Width = 198
+    Caption = 'Who do you wish to clone?'
+  end
+  object CloneName: TEdit
+    Left = 8
+    Height = 26
+    Top = 128
+    Width = 464
+    TabOrder = 0
+    Text = 'CloneName'
+  end
+  object CloneBtn: TButton
+    Left = 80
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = 'Clone'
+    TabOrder = 1
+    OnClick = CloneBtnClick
+  end
+  object CancelBtn: TButton
+    Left = 280
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+    OnClick = CancelBtnClick
+  end
+  object Output: TMemo
+    Left = 8
+    Height = 234
+    Top = 208
+    Width = 467
+    Lines.Strings = (
+      'Basic instructions and example of cloning use:'
+      ''
+      'To clone a fictional character from a TV show or movie, let''s say in our example Rose from The Golden Girls, played by the amazing til the day she left our world, Betty White:'
+      ''
+      'Rose, from the TV show The Golden Girls.'
+      ''
+      'If you place that right now into the text box above these directions, you could be hearing amazing stories about her many times in St. Olaf in mere seconds!'
+      ''
+      'But those are the general instructions on how to use this.'
+      ''
+      'It will then use your local model to perform a few chat prompts, which then the final output will be placed where these instructions currently are.'
+      ''
+      'This is where you will need to read the output, and take only the sentance, perhaps a better prompt might lead to better results in the future, and perhaps automating this one part, but for now, until then, please extract the one-liner sentence which it gives in the output, copy that into the one-line description field in Create-a-Buddy.'
+    )
+    ScrollBars = ssAutoVertical
+    TabOrder = 3
+  end
+  object AIChat: TAIChat
+    Active = False
+    Append = False
+    Left = 400
+    Top = 40
+  end
+end

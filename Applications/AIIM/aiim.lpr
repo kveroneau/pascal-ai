@@ -10,7 +10,8 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, sqlite3laz, BuddyListWindow, ModelLogonWindow, dbmodel
+  Forms, sqlite3laz, BuddyListWindow, ModelLogonWindow, dbmodel,
+  BuddyChatWindow, CreateABuddyWindow, CloneWindow
   { you can add units after this };
 
 {$R *.res}
@@ -26,6 +27,8 @@ begin
   Application.CreateForm(TBuddyListForm, BuddyListForm);
   Application.CreateForm(TModelLogonForm, ModelLogonForm);
   Application.CreateForm(TDatabase, Database);
+  Application.CreateForm(TCreateABuddyForm, CreateABuddyForm);
+  Application.CreateForm(TCloneForm, CloneForm);
   Application.Run;
 end.
 

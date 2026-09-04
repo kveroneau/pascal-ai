@@ -1,0 +1,53 @@
+object BuddyChatForm: TBuddyChatForm
+  Left = 322
+  Height = 419
+  Top = 185
+  Width = 613
+  Caption = 'BuddyChatForm'
+  ClientHeight = 419
+  ClientWidth = 613
+  LCLVersion = '4.6.0.0'
+  OnClose = FormClose
+  OnResize = FormResize
+  OnShow = FormShow
+  object ChatText: TMemo
+    Left = 0
+    Height = 352
+    Top = 0
+    Width = 616
+    Lines.Strings = (
+      'ChatText'
+    )
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 0
+  end
+  object UserInput: TMemo
+    Left = 0
+    Height = 66
+    Top = 353
+    Width = 512
+    Lines.Strings = (
+      'UserInput'
+    )
+    TabOrder = 1
+  end
+  object SendBtn: TButton
+    Left = 520
+    Height = 49
+    Top = 360
+    Width = 75
+    Caption = 'Send'
+    TabOrder = 2
+    OnClick = SendBtnClick
+  end
+  object AIChat: TAIChat
+    Active = False
+    Append = True
+    OnStart = AIChatStart
+    OnFinish = AIChatFinish
+    Output = ChatText
+    Left = 528
+    Top = 98
+  end
+end

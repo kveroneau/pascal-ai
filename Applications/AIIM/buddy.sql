@@ -1,0 +1,7 @@
+CREATE TABLE "buddy" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"name"	TEXT NOT NULL,
+	"history"	TEXT NOT NULL,
+	"category"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
