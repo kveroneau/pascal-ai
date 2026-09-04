@@ -26,6 +26,7 @@ type
     procedure SendChat;
     function CreateTool(name, desc: string): TJSONObject;
     function CreateParam(na, typ, desc: string): TJSONObject;
+    procedure ResetContext;
   protected
     procedure Execute; override;
   public
@@ -134,7 +135,12 @@ begin
       RTLEventResetEvent(FEvent);
       RTLEventWaitFor(FEvent);
       if FMessage <> '' then
-        SendChat;
+      begin
+        if FMessage = '#!RESET!#' then
+          ResetContext
+        else
+          SendChat;
+      end;
     until not FRunning;
   finally
     FAsJSON:=FMsgList.AsJSON;
@@ -199,14 +205,22 @@ var
   msg: TJSONObject;
 begin
   Result:='';
-  if FRunning then
-    Exit;
+  {if FRunning then
+    Exit;}
   for i:=0 to FMsgList.Arrays['messages'].Count-1 do
   begin
     msg:=FMsgList.Arrays['messages'].Objects[i];
     if msg.Strings['role'] = 'assistant' then
       Result:=Result+msg.Strings['content']+#13;
   end;
+end;
+
+procedure TAIThread.ResetContext;
+var
+  i: Integer;
+begin
+  for i:=FMsgList.Arrays['messages'].Count-1 downto 1 do
+    FMsgList.Arrays['messages'].Delete(i);
 end;
 
 end.

@@ -42,6 +42,7 @@ type
     procedure SendMessage(msg: string);
     procedure LoadJSON(json: string);
     function AsJSON: string;
+    procedure Reset;
   published
     property Active: Boolean read FActive write SetActive;
     property Prompt: string read FPrompt write SetPrompt;
@@ -194,6 +195,13 @@ end;
 function TAIChat.AsJSON: string;
 begin
   Result:=FChat.AsJSON;
+end;
+
+procedure TAIChat.Reset;
+begin
+  if not FActive then
+    raise Exception.Create('Cannot Reset Context on inactive AI Chat.');
+  FChat.SendMessage('#!RESET!#');
 end;
 
 end.
