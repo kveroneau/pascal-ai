@@ -1,5 +1,5 @@
 object CreateABuddyForm: TCreateABuddyForm
-  Left = 333
+  Left = 6093
   Height = 359
   Top = 192
   Width = 567

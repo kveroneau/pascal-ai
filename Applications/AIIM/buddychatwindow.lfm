@@ -1,7 +1,7 @@
 object BuddyChatForm: TBuddyChatForm
-  Left = 322
+  Left = 966
   Height = 419
-  Top = 185
+  Top = 353
   Width = 613
   Caption = 'BuddyChatForm'
   ClientHeight = 419
@@ -44,6 +44,7 @@ object BuddyChatForm: TBuddyChatForm
   object AIChat: TAIChat
     Active = False
     Append = True
+    OnChat = AIChatChat
     OnStart = AIChatStart
     OnFinish = AIChatFinish
     Output = ChatText

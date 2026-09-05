@@ -9,7 +9,7 @@ uses
 
 type
 
-  TChatEvent = procedure(Sender: TObject; msg: string) of object;
+  TChatEvent = procedure(Sender: TObject; const AResponse: string; Success: Boolean) of object;
   TPromptEvent = function(Sender: TObject): string of object;
 
   { TAIChat }
@@ -29,10 +29,12 @@ type
     function GetMessageReady: Boolean;
     procedure SetActive(AValue: Boolean);
     procedure SetModel(AValue: string);
+    procedure SetOutput(AValue: TMemo);
     procedure SetPrompt(AValue: string);
     procedure SetURL(AValue: string);
+    procedure HandleThreadChat(Sender: TObject; const AResponse: string; Success: Boolean);
   protected
-
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
     property MessageReady: Boolean read GetMessageReady;
     property Message: string read GetMessage;
@@ -54,7 +56,7 @@ type
     property OnPrompt: TPromptEvent read FOnPrompt write FOnPrompt;
     property OnStart: TNotifyEvent read FOnStart write FOnStart;
     property OnFinish: TNotifyEvent read FOnFinish write FOnFinish;
-    property Output: TMemo read FOutput write FOutput;
+    property Output: TMemo read FOutput write SetOutput;
   end;
 
 procedure Register;
@@ -79,6 +81,7 @@ begin
     if FPrompt = '' then
       FPrompt:='You are a helpful assistant.';
     FChat:=TAIThread.Create(FPrompt, FModel, FURL);
+    FChat.OnChat:=@HandleThreadChat;
     if Assigned(FOnStart) then
       FOnStart(Self);
     FChat.Start;
@@ -126,6 +129,16 @@ begin
   FModel:=AValue;
 end;
 
+procedure TAIChat.SetOutput(AValue: TMemo);
+begin
+  if FOutput=AValue then Exit;
+  if Assigned(FOutput) then
+    FOutput.RemoveFreeNotification(Self);
+  FOutput := AValue;
+  if Assigned(FOutput) then
+    FOutput.FreeNotification(Self);
+end;
+
 procedure TAIChat.SetPrompt(AValue: string);
 begin
   if FPrompt=AValue then Exit;
@@ -142,6 +155,34 @@ begin
   FURL:=AValue;
 end;
 
+procedure TAIChat.HandleThreadChat(Sender: TObject; const AResponse: string;
+  Success: Boolean);
+var
+  caret: TPoint;
+begin
+  FSending := False;
+  if Success and Assigned(FOutput) then
+  begin
+    if FAppend then
+    begin
+      caret:=FOutput.CaretPos;
+      FOutput.Lines.Add(AResponse);
+      FOutput.CaretPos:=caret;
+    end
+    else
+      FOutput.Text := AResponse;
+  end;
+  if Assigned(FOnChat) then
+    FOnChat(Self, AResponse, Success);
+end;
+
+procedure TAIChat.Notification(AComponent: TComponent; Operation: TOperation);
+begin
+  inherited Notification(AComponent, Operation);
+  if (Operation = opRemove) and (AComponent = FOutput) then
+    FOutput := Nil;
+end;
+
 constructor TAIChat.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -156,31 +197,13 @@ begin
 end;
 
 procedure TAIChat.SendMessage(msg: string);
-var
-  caret: TPoint;
 begin
+  if not FActive then
+    raise EInvalidOperation.Create('AIChat must be Active before sending a message.');
   if FSending then
-    raise Exception.Create('Cannot Send a message when one is already sending.');
+    raise EInvalidOperation.Create('Cannot Send a message when one is already sending.');
   FSending:=True;
   FChat.SendMessage(msg);
-  repeat
-    Application.ProcessMessages;
-    Sleep(100);
-  until FChat.MessageReady;
-  if Assigned(FOnChat) then
-    FOnChat(Self, FChat.Message);
-  if Assigned(FOutput) then
-  begin
-    if FAppend then
-    begin
-      caret:=FOutput.CaretPos;
-      FOutput.Text:=FOutput.Text+#13+FChat.Message;
-      FOutput.CaretPos:=caret;
-    end
-    else
-      FOutput.Text:=FChat.Message;
-  end;
-  FSending:=False;
 end;
 
 procedure TAIChat.LoadJSON(json: string);

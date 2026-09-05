@@ -24,6 +24,8 @@ type
     TIEdit1: TTIEdit;
     TIEdit2: TTIEdit;
     TIEdit3: TTIEdit;
+    procedure AIChat1Chat(Sender: TObject; const AResponse: string;
+      Success: Boolean);
     procedure Button1Click(Sender: TObject);
   private
 
@@ -46,7 +48,11 @@ begin
     raise Exception.Create('Please Activate before sending a message.');
   Button1.Enabled:=False;
   AIChat1.SendMessage(Edit1.Text); // Not technically blocking...
-  // However, the rest of the code will not run until it's done, but the UI will remain response.
+end;
+
+procedure TForm1.AIChat1Chat(Sender: TObject; const AResponse: string;
+  Success: Boolean);
+begin
   Button1.Enabled:=True;
 end;
 

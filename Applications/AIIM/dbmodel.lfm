@@ -3,7 +3,7 @@ object Database: TDatabase
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 170
-  HorizontalOffset = 317
+  HorizontalOffset = 6077
   VerticalOffset = 166
   Width = 226
   object BuddyDB: TSqlite3Dataset

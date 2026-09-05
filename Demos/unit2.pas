@@ -17,6 +17,8 @@ type
     Memo1: TMemo;
     TIEdit1: TTIEdit;
     TIEdit2: TTIEdit;
+    procedure AIChat1Chat(Sender: TObject; const AResponse: string;
+      Success: Boolean);
     procedure FormResize(Sender: TObject);
     procedure Memo1DblClick(Sender: TObject);
   private
@@ -41,12 +43,8 @@ begin
   if (TIEdit1.Text = '') or (TIEdit2.Text = '') then
     Exit;
   AIChat1.Active:=True;
-  try
-    Sleep(1000);
-    AIChat1.SendMessage('Can you please summarize the following text for me: '+Memo1.Text);
-  finally
-    AIChat1.Active:=False;
-  end;
+  Sleep(1000);
+  AIChat1.SendMessage('Can you please summarize the following text for me: '+Memo1.Text);
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
@@ -56,6 +54,12 @@ begin
   TIEdit1.Width:=ClientWidth div 2;
   TIEdit2.Left:=TIEdit1.Width;
   TIEdit2.Width:=TIEdit1.Width;
+end;
+
+procedure TForm1.AIChat1Chat(Sender: TObject; const AResponse: string;
+  Success: Boolean);
+begin
+  AIChat1.Active:=False;
 end;
 
 end.

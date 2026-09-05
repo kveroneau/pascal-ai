@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 325
+  Left = 335
   Height = 358
-  Top = 166
+  Top = 194
   Width = 323
   Caption = 'Form1'
   ClientHeight = 358
@@ -97,6 +97,7 @@ object Form1: TForm1
   object AIChat1: TAIChat
     Active = False
     Append = True
+    OnChat = AIChat1Chat
     Output = Memo1
     Left = 264
     Top = 120

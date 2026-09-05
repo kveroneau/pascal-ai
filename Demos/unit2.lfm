@@ -42,6 +42,7 @@ object Form1: TForm1
     Active = False
     Prompt = 'You are a Princeton English Professor that excels in creating summaries of various text and notes you are provided.'
     Append = False
+    OnChat = AIChat1Chat
     Output = Memo1
     Left = 256
     Top = 40

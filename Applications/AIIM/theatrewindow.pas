@@ -28,7 +28,11 @@ type
     Label6: TLabel;
     Label7: TLabel;
     ChatText: TMemo;
+    procedure AIChat1Chat(Sender: TObject; const AResponse: string;
+      Success: Boolean);
     procedure AIChat1Start(Sender: TObject);
+    procedure AIChat2Chat(Sender: TObject; const AResponse: string;
+      Success: Boolean);
     procedure AIChat2Start(Sender: TObject);
     procedure Buddy1Change(Sender: TObject);
     procedure Buddy2Change(Sender: TObject);
@@ -73,31 +77,12 @@ begin
 end;
 
 procedure TTheatreForm.NextBtnClick(Sender: TObject);
-var
-  caret: TPoint;
 begin
   NextBtn.Enabled:=False;
-  caret:=ChatText.CaretPos;
-  try
-    if FCurChat = 1 then
-    begin
-      AIChat1.SendMessage(AIChat2.Message);
-      caret:=ChatText.CaretPos;
-      ChatText.Text:=ChatText.Text+Buddy1.Text+':'+#13+AIChat1.Message+#13#13;
-    end
-    else if FCurChat = 2 then
-    begin
-      AIChat2.SendMessage(AIChat1.Message);
-      caret:=ChatText.CaretPos;
-      ChatText.Text:=ChatText.Text+Buddy2.Text+':'+#13+AIChat2.Message+#13#13;
-    end;
-    Inc(FCurChat);
-    if FCurChat > 2 then
-      FCurChat:=1;
-  finally
-    ChatText.CaretPos:=caret;
-    NextBtn.Enabled:=True;
-  end;
+  if FCurChat = 1 then
+    AIChat1.SendMessage(AIChat2.Message)
+  else if FCurChat = 2 then
+    AIChat2.SendMessage(AIChat1.Message);
 end;
 
 procedure TTheatreForm.UpdateBuddies;
@@ -119,6 +104,30 @@ begin
       raise Exception.Create('Could not find: '+Buddy1.Text+'!');
     AIChat1.LoadJSON(FieldByName('history').AsString);
   end;
+end;
+
+procedure TTheatreForm.AIChat2Chat(Sender: TObject; const AResponse: string;
+  Success: Boolean);
+var
+  caret: TPoint;
+begin
+  caret:=ChatText.CaretPos;
+  ChatText.Text:=ChatText.Text+Buddy2.Text+':'+#13+AIChat2.Message+#13#13;
+  ChatText.CaretPos:=caret;
+  FCurChat:=1;
+  NextBtn.Enabled:=True;
+end;
+
+procedure TTheatreForm.AIChat1Chat(Sender: TObject; const AResponse: string;
+  Success: Boolean);
+var
+  caret: TPoint;
+begin
+  caret:=ChatText.CaretPos;
+  ChatText.Text:=ChatText.Text+Buddy1.Text+':'+#13+AIChat1.Message+#13#13;
+  ChatText.CaretPos:=caret;
+  FCurChat:=2;
+  NextBtn.Enabled:=True;
 end;
 
 procedure TTheatreForm.AIChat2Start(Sender: TObject);
@@ -153,9 +162,6 @@ begin
   AIChat2.Reset;
   ChatText.Text:=Buddy2.Text+':'+#13+FirstPrompt.Text+#13#13;
   AIChat1.SendMessage(FirstPrompt.Text);
-  ChatText.Text:=ChatText.Text+Buddy1.Text+':'+#13+AIChat1.Message+#13#13;
-  FCurChat:=2;
-  NextBtn.Enabled:=True;
 end;
 
 end.

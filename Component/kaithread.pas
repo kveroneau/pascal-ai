@@ -9,6 +9,8 @@ uses
 
 type
 
+  TOnChatResponse = procedure(Sender: TObject; const AResponse: string; Success: Boolean) of object;
+
   { TAIThread }
 
   TAIThread = class(TThread)
@@ -22,11 +24,14 @@ type
     FMemory: boolean;
     FMsgList: TJSONObject;
     FAsJSON: string;
+    FOnChat: TOnChatResponse;
+    FSuccess: Boolean;
     procedure AddMessage(role, content: string);
     procedure SendChat;
     function CreateTool(name, desc: string): TJSONObject;
     function CreateParam(na, typ, desc: string): TJSONObject;
     procedure ResetContext;
+    procedure DoCallback;
   protected
     procedure Execute; override;
   public
@@ -34,6 +39,7 @@ type
     property MessageReady: Boolean read FMsgReady;
     property Message: string read FMessage;
     property EnableMemory: boolean read FMemory write FMemory;
+    property OnChat: TOnChatResponse read FOnChat write FOnChat;
     procedure SendMessage(msg: string);
     procedure StopThread;
     function AsJSON: string;
@@ -57,38 +63,54 @@ end;
 
 procedure TAIThread.SendChat;
 var
-  resp, msg: TJSONObject;
-  loc: string;
+  msg: TJSONData;
+  resp: string;
+  json, choices: TJSONData;
 begin
   EnterCriticalSection(FLock);
   AddMessage('user', FMessage);
   FMessage:='';
+  FSuccess:=False;
   LeaveCriticalSection(FLock);
   with TFPHTTPClient.Create(Nil) do
   try
     RequestBody:=TStringStream.Create(FMsgList.AsJSON);
     AddHeader('Content-Type', 'application/json');
-    resp:=TJSONObject(GetJSON(Post(FURL+'/chat/completions')));
-    RequestBody.Free;
-    msg:=resp.Arrays['choices'].Objects[0].Objects['message'];
-    if msg.Strings['content'] = '' then
-    begin
-      if msg.Arrays['tool_calls'].Objects[0].Objects['function'].Strings['name'] = 'get_weather' then
-      begin
-        WriteLn('We got successful use of tools!');
-        loc:=msg.Arrays['tool_calls'].Objects[0].Objects['function'].Strings['arguments'];
+    // resp:=TJSONObject(GetJSON(Post(FURL+'/chat/completions')));
+    try
+      resp:=Post(FURL+'/chat/completions');
+      json:=GetJSON(resp);
+      try
+        if (json is TJSONObject) then
+        begin
+          choices:=TJSONObject(json).Find('choices');
+          if Assigned(choices) and (choices.Count > 0) then
+          begin
+            msg:=choices.Items[0].FindPath('message');
+            if Assigned(msg) then
+            begin
+              FMessage:=msg.GetPath('content').AsString;
+              AddMessage('assistant', FMessage);
+              FSuccess:=True;
+            end;
+          end;
+        end;
+      finally
+        json.Free;
       end;
-    end
-    else
-    begin
-      AddMessage(msg.Strings['role'], msg.Strings['content']);
-      FMessage:=msg.Strings['content'];
+    except
+      on E: Exception do
+      begin
+        FMessage:='HTTP/JSON Error: ' + E.Message;
+        FSuccess:=False;
+      end;
     end;
-    resp.Free;
+    RequestBody.Free;
   finally
     Free;
     FMsgReady:=True;
   end;
+  Queue(@DoCallback);
 end;
 
 function TAIThread.CreateTool(name, desc: string): TJSONObject;
@@ -221,6 +243,12 @@ var
 begin
   for i:=FMsgList.Arrays['messages'].Count-1 downto 1 do
     FMsgList.Arrays['messages'].Delete(i);
+end;
+
+procedure TAIThread.DoCallback;
+begin
+  if Assigned(FOnChat) then
+    FOnChat(Self, FMessage, FSuccess);
 end;
 
 end.

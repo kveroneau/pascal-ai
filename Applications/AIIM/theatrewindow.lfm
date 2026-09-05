@@ -1,7 +1,7 @@
 object TheatreForm: TTheatreForm
-  Left = 543
+  Left = 840
   Height = 450
-  Top = 221
+  Top = 395
   Width = 683
   Caption = 'AIIM Theatre'
   ClientHeight = 450
@@ -128,6 +128,7 @@ object TheatreForm: TTheatreForm
   object AIChat1: TAIChat
     Active = False
     Append = False
+    OnChat = AIChat1Chat
     OnStart = AIChat1Start
     Left = 616
     Top = 8
@@ -135,6 +136,7 @@ object TheatreForm: TTheatreForm
   object AIChat2: TAIChat
     Active = False
     Append = False
+    OnChat = AIChat2Chat
     OnStart = AIChat2Start
     Left = 616
     Top = 64

@@ -17,6 +17,8 @@ type
     SendBtn: TButton;
     ChatText: TMemo;
     UserInput: TMemo;
+    procedure AIChatChat(Sender: TObject; const AResponse: string;
+      Success: Boolean);
     procedure AIChatFinish(Sender: TObject);
     procedure AIChatStart(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -91,6 +93,12 @@ begin
   end;
 end;
 
+procedure TBuddyChatForm.AIChatChat(Sender: TObject; const AResponse: string;
+  Success: Boolean);
+begin
+  SendBtn.Enabled:=True;
+end;
+
 procedure TBuddyChatForm.FormShow(Sender: TObject);
 begin
   ChatText.Text:='';
@@ -106,12 +114,8 @@ end;
 procedure TBuddyChatForm.SendBtnClick(Sender: TObject);
 begin
   SendBtn.Enabled:=False;
-  try
-    AIChat.SendMessage(UserInput.Text);
-    UserInput.Text:='';
-  finally
-    SendBtn.Enabled:=True;
-  end;
+  AIChat.SendMessage(UserInput.Text);
+  UserInput.Text:='';
 end;
 
 procedure TBuddyChatForm.NewChat;

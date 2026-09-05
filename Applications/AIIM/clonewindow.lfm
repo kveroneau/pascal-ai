@@ -1,7 +1,7 @@
 object CloneForm: TCloneForm
-  Left = 382
+  Left = 966
   Height = 452
-  Top = 268
+  Top = 353
   Width = 480
   Caption = 'Clone-A-Buddy'
   ClientHeight = 452
@@ -105,6 +105,7 @@ object CloneForm: TCloneForm
   object AIChat: TAIChat
     Active = False
     Append = False
+    OnChat = AIChatChat
     Left = 400
     Top = 40
   end

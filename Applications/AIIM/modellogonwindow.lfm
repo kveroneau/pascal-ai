@@ -1,5 +1,5 @@
 object ModelLogonForm: TModelLogonForm
-  Left = 317
+  Left = 6077
   Height = 259
   Top = 166
   Width = 320
