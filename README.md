@@ -110,6 +110,11 @@ There are two events currently on this component which can be set:
   * **OnPrompt**: Called once during the initialization of the AI component, called when `.Active` gets set to *True*.
     - Is not called otherwise during runtime, and so cannot be used to dynamically alter the system prompt.
     - For the AI to remain properly consistent, the system prompt needs to be set once at the beginning and be persistent.
+  * **OnStart**: This event is triggered after the AI has been configured, but has yet to be started.
+    - This is the only place where calling `.LoadJSON` is valid!
+    - Perform any *context memory loading* during this event to further configure the AI.
+  * **OnFinish**: Called right before the model is being deactivated.
+    - This is where you should call `.AsJSON` to save the *memory context* if desired.
 
 There are some properties which can only be accessed programmatically and aren't exposed as properties in Lazarus:
 
@@ -120,13 +125,16 @@ There are some properties which can only be accessed programmatically and aren't
 These are the methods which are exposed, one currently:
 
   * **SendMessage(msg: string);**: This is used in a very obvious way...  Do I even need to explain what this does?
-    - I will however note that this does not return until after a chat response has been received.
-    - However, it will not block the UI, so buttons and other form elements can be updated and used.
-    - This functionality may change in a future version, so always use the `OnChat` event over placing handler code after this method call.
+    - It will not block the UI, so buttons and other form elements can be updated and used.
+    - AI chat message is processed in a background Thread.
+  * **LoadJSON(json: string);**: This is used to load in a previously saved context, *chat history* to keep a persistent memory between runs.
+  * **AsJSON: string**: A function which can be called to generate a JSON in string format, suitable for saving to persistent file storage, which can later be loaded in via `.LoadJSON`.
+  * **Reset;**: Allows you to wipe the current memory context, except for the initial *System Prompt*.
+    - This can be useful in different situations, for long running chats, this could be called after requesting a *summary of the chat*, to allow for *context compression*.
 
 ## Future Improvements
 
-I want to change how `TAIChat.SendMessage` works, so that there are a few options available to the application developer, such as using an existing `TTimer` component on the form to perform a poll on the thread, or to disable any automatic polling, and to instead delegate it entirely to the application developer, where they need to manually check for when a message is ready.  I am still deciding the exact implementation details, but I want it to be as flexible as possible, so that this component won't be bound to the LCL, and could be used in server and command-line applications via the `TDataModule`.
+
 
 And finally, I'll leave you with this, a screenshot of the demo1 application running:
 
